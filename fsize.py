@@ -17,10 +17,13 @@ def convert2Bytes(data):
             elif x in ascii_letters:
                 s += x
         if not len(s) == 0:
-            for x in size_names:
+            if s.upper() in size_names:
+              for x in size_names:
                 xpnet += 1
                 if s.upper() == x:
                     break
+            else:
+                raise TypeError()
         else:
             xpnet = 1
         if '.' in d:
@@ -56,8 +59,11 @@ if __name__ == '__main__' and not debug:
     print(convertSize(path.getsize(_path)))
 
    else:
+     
      try:
-       print(convertSize(convert2Bytes(argv[1]+argv[2])))
-     except IndexError:
-       print(convertSize(convert2Bytes(argv[1])))
-
+       try:
+         print(convertSize(convert2Bytes(argv[1]+argv[2])))
+       except IndexError:
+         print(convertSize(convert2Bytes(argv[1])))
+     except TypeError:
+       print('unrecognized data type')
