@@ -22,7 +22,7 @@ def convert2Bytes(data):
                 if s.upper() == x:
                     break
         else:
-            xpnet = 0
+            xpnet = 1
         if '.' in d:
           return float(d.split('.')[0])*1024**(xpnet)+float('0.'+d.split('.')[1])*1024**(xpnet)
         else: return float(d.split('.')[0])*1024**(xpnet)
@@ -39,13 +39,19 @@ def convertSize(size):
 if __name__ == '__main__' and not debug:
    _path = path.join(getcwd(), argv[1])
    bytescnt = 0
+   weirddataflag = 0
+   weirdDatacnt = 0
    if path.isdir(_path):
     for x in walk(_path):
       for i in x[2]:
-        bytescnt += path.getsize(path.join(x[0], i))
-
+        try:
+          bytescnt += path.getsize(path.join(x[0], i))
+        except OSError:
+            weirddataflag = 1
+            weirdDatacnt += 1
     print(convertSize(bytescnt))
-
+    if weirddataflag:
+      print('There was some weird OS errors, number of weird files: '+str(weirdDatacnt))
    elif path.isfile(_path):
     print(convertSize(path.getsize(_path)))
 
@@ -54,3 +60,4 @@ if __name__ == '__main__' and not debug:
        print(convertSize(convert2Bytes(argv[1]+argv[2])))
      except IndexError:
        print(convertSize(convert2Bytes(argv[1])))
+
