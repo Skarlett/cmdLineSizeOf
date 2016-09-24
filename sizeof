@@ -1,1 +1,1 @@
-python /usr/local/src/fsize.py $1
+python /usr/local/src/fsize.py $@
