@@ -22,7 +22,7 @@ def convert2Bytes(data):
                 if s.upper() == x:
                     break
         else:
-            xpnet = 1
+            xpnet = 0
         if '.' in d:
           return float(d.split('.')[0])*1024**(xpnet)+float('0.'+d.split('.')[1])*1024**(xpnet)
         else: return float(d.split('.')[0])*1024**(xpnet)
@@ -54,5 +54,3 @@ if __name__ == '__main__' and not debug:
        print(convertSize(convert2Bytes(argv[1]+argv[2])))
      except IndexError:
        print(convertSize(convert2Bytes(argv[1])))
-
-# Add commits
