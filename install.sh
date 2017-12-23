@@ -1,1 +1,4 @@
-chmod +x fsize.py && chmod +x sizeof && mv fsize.py /usr/local/src/ && mv sizeof /bin && rm install.sh
+chmod +x fsize.py
+mkdir ~/.fsize
+mv fsize.py ~/.fsize/
+ln -s ~/.fsize/fsize.py /usr/sbin/sizeof
