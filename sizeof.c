@@ -20,7 +20,7 @@ enum {
 	WALK_NAMETOOLONG,
 	WALK_BADIO,
 };
-
+const char * FILE_SIZES[2] = { "B", "KB", "MB", "GB", "TB", "PB" };
 
 #define WS_NONE		0
 #define WS_RECURSIVE	(1 << 0)
@@ -121,21 +121,17 @@ int is_digit(char *string){
 }
 
 void humanize(long double bytes, char * buffer){
-    double i, p;
-    long double s;
-    const char *e[6];
-    e[0] = "B";
-    e[1] = "KB";
-    e[2] = "MB";
-    e[3] = "GB";
-    e[4] = "TB";
-    e[5] = "PB";
-
-    i = floor(log(bytes) / log(1024));
-    p = pow(1024, i);
-    s = bytes/p;
-
-    sprintf(buffer, "%llf %s", s, e[(int)i]);
+    if (bytes > 0) {
+    	double i, p;
+    	long double s;
+    	i = floor(log(bytes) / log(1024));
+    	p = pow(1024, i);
+    	s = bytes/p;
+    	sprintf(buffer, "%llf %s", s, FILE_SIZES[(int)i]);
+    }
+    else {
+    	sprintf(buffer, "0 B");
+    }
 }
 
 
